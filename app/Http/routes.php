@@ -1,0 +1,64 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Application Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register all of the routes for an application.
+| It's a breeze. Simply tell Laravel the URIs it should respond to
+| and give it the controller to call when that URI is requested.
+|
+*/
+
+Route::get('about', 'PagesController@about');
+Route::get('contact', 'PagesController@contact');
+
+//Route::get('articles', 'ArticlesController@index');
+//Route::get('articles/create', 'ArticlesController@create');
+//Route::get('articles/{id}', 'ArticlesController@show');
+//Route::post('articles', 'ArticlesController@store');
+
+Route::resource('articles', 'ArticlesController');
+
+// Tag routes
+Route::resource('tags', 'TagsController', ['only' => ['index', 'show']]);
+
+
+// Authentication routes...
+Route::get('auth/login', 'Auth\AuthController@getLogin');
+Route::post('auth/login', 'Auth\AuthController@postLogin');
+Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
+// Registration routes...
+Route::get('auth/register', 'Auth\AuthController@getRegister');
+Route::post('auth/register', 'Auth\AuthController@postRegister');
+
+
+Route::resource('users', 'UsersController', ['only' => ['index', 'show']]);
+
+
+Route::post('questions/{questions}/comments', [
+    'as' => 'questions.comments.store', 'uses' => 'CommentsController@store'
+]);
+
+Route::get('questions/{questions}/comments/create', [
+    'as' => 'questions.comments.create', 'uses' => 'CommentsController@create'
+]);
+
+
+Route::post('answers/{answers}/comments', [
+    'as' => 'answers.comments.store', 'uses' => 'CommentsController@store'
+]);
+
+Route::get('answers/{answers}/comments/create', [
+    'as' => 'answers.comments.create', 'uses' => 'CommentsController@create'
+]);
+
+Route::resource('comments', 'CommentsController', ['except' => ['create', 'store', 'index']]);
+
+
+Route::resource('questions', 'QuestionsController');
+Route::resource('questions.answers', 'AnswersController');
+// Route::resource('questions.comments', 'CommentsController');
+// Route::resource('questions.answers.comments', 'CommentsController');
