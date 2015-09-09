@@ -22,7 +22,7 @@ elixir(function(mix) {
 
     mix.scripts([
         'libs/jquery.js',
-        'libs/bootstrap.min.js',
+        '../../../node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js',
         'libs/select2.min.js'
     ]);
 });
