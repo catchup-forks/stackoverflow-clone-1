@@ -19,6 +19,11 @@ class Comment extends Model
         return $this->morphTo();
     }
 
+    public function votes()
+    {
+        return $this->morphMany('App\Vote', 'voteable');
+    }
+
     public function user()
     {
         return $this->belongsTo('App\User');
